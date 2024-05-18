@@ -1,20 +1,39 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const SignUp = () => {
+  const { createUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm();
   // console.log(errors);
   const onSubmit = (data) => {
     console.log(data);
+    const { name, email, password } = data;
+    // console.log(name, email, password);
+
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        reset(); // form  কে reset করার জন্য
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
     <div>
+      <Helmet>
+        <title>Sign Up | Bistro Boss Restaurant</title>
+      </Helmet>
       <div className=" w-full flex justify-center items-center min-h-screen">
         <div className="hero-content mx-10 md:mx-0 w-full md:w-1/2 lg:w-1/3">
           <div className="card border  w-full shadow-2xl bg-base-100 p-6 text-center">
@@ -64,6 +83,7 @@ const SignUp = () => {
                     required: true,
                     minLength: 6,
                     maxLength: 16,
+                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
                   })}
                   name="password"
                   placeholder="password"
@@ -81,6 +101,16 @@ const SignUp = () => {
                       Password at least 6 character
                     </span>
                   ))}
+                {errors.password?.type === "maxLength" && (
+                  <span className="text-red-500 mt-1 text-start">
+                    Password maximum 16 character
+                  </span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-red-500 mt-1 text-start">
+                    Password have one uppercase, lowercase & special character
+                  </span>
+                )}
 
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">

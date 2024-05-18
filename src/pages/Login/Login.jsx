@@ -6,6 +6,7 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const captchaRef = useRef(null);
@@ -43,6 +44,9 @@ const Login = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Login | Bistro Boss Restaurant</title>
+      </Helmet>
       <div className=" w-full flex justify-center items-center min-h-screen">
         <div className="hero-content mx-10 md:mx-0 w-full md:w-1/2 lg:w-1/3">
           <div className="card border  w-full shadow-2xl bg-base-100 p-6 text-center">
