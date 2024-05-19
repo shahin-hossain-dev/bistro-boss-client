@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -7,9 +7,9 @@ import {
 import { AuthContext } from "../../providers/AuthProvider";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
 
   const { loginUser } = useContext(AuthContext);
@@ -28,14 +28,19 @@ const Login = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        Swal.fire({
+          title: "Login Successful",
+          text: "You Can Visit Anywhere!",
+          icon: "success",
+        });
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
 
-  const handleValidateCaptcha = () => {
-    const user_captcha_value = captchaRef.current.value;
+  const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
       setDisabled(false);
     } else {
@@ -89,18 +94,13 @@ const Login = () => {
                 <input
                   type="text"
                   name="captcha"
-                  ref={captchaRef}
+                  onBlur={handleValidateCaptcha}
                   placeholder="Type the captcha above"
                   className="input input-bordered"
                   required
                 />
               </div>
-              <button
-                onClick={handleValidateCaptcha}
-                className="btn btn-outline btn-xs"
-              >
-                Validate
-              </button>
+
               <div className="form-control mt-6">
                 <input
                   type="submit"
