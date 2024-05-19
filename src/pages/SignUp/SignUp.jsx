@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,12 +18,28 @@ const SignUp = () => {
   // console.log(errors);
   const onSubmit = (data) => {
     console.log(data);
-    const { name, email, password } = data;
-    // console.log(name, email, password);
+    const { name, PhotoURL, email, password } = data;
+    // console.log(name, email, PhotoURL, password);
 
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
+        if (result.user) {
+          updateUserProfile(name, PhotoURL)
+            .then(() => {
+              console.log("user info updated");
+              Swal.fire({
+                title: "User Created Successfully",
+                text: "Welcome to Bistro Boss",
+                icon: "success",
+              });
+              navigate("/");
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        }
+
         reset(); // form  কে reset করার জন্য
       })
       .catch((error) => {
@@ -53,6 +71,22 @@ const SignUp = () => {
                 {errors.name && (
                   <span className="text-red-500 mt-1 text-start">
                     Please fill up name field
+                  </span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">PhotoURL</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("PhotoURL", { required: true })}
+                  placeholder="Enter Your PhotoURL"
+                  className="input input-bordered"
+                />
+                {errors.PhotoURL && (
+                  <span className="text-red-500 mt-1 text-start">
+                    Please fill up PhotoURL field
                   </span>
                 )}
               </div>
