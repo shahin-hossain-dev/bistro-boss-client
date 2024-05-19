@@ -38,7 +38,7 @@ const Navbar = () => {
         <Link to={"/secret"}>Secret</Link>
       </li>
       <li>
-        <Link to={"/"}>
+        <Link to={"/dashboard/cart"}>
           <div className="relative me-10">
             <FaShoppingCart className="text-2xl" />
             <div className="badge badge-secondary absolute -top-2 border-2 border-white -right-10">
