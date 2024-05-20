@@ -1,9 +1,15 @@
-import { FaCalendar, FaHome, FaList, FaShoppingCart } from "react-icons/fa";
+import {
+  FaCalendar,
+  FaHome,
+  FaList,
+  FaSearch,
+  FaShoppingCart,
+} from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { MdPostAdd } from "react-icons/md";
 const Dashboard = () => {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       {/* dashboard right side bar */}
       <div className="w-64 p-5  font-bold min-h-full bg-orange-300">
         <ul className="manu space-y-3 ">
@@ -42,10 +48,25 @@ const Dashboard = () => {
               </span>
             </NavLink>
           </li>
+          <div className="divider"></div>
+          <li>
+            <NavLink to={"/"}>
+              <span className="flex gap-2 items-center">
+                <FaHome /> <span> Home</span>
+              </span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/"}>
+              <span className="flex gap-2 items-center">
+                <FaSearch /> <span> Menu</span>
+              </span>
+            </NavLink>
+          </li>
         </ul>
       </div>
       {/* dashboard content */}
-      <div className="flex-1">
+      <div className="flex-1 p-8">
         <Outlet />
       </div>
     </div>
