@@ -7,7 +7,9 @@ import {
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import { MdPostAdd } from "react-icons/md";
+import useCart from "../hooks/useCart";
 const Dashboard = () => {
+  const [cart] = useCart();
   return (
     <div className="flex min-h-screen">
       {/* dashboard right side bar */}
@@ -30,7 +32,7 @@ const Dashboard = () => {
           <li>
             <NavLink to={"/dashboard/cart"}>
               <span className="flex gap-2 items-center">
-                <FaShoppingCart /> <span>My Cart</span>
+                <FaShoppingCart /> <span>My Cart ({cart.length})</span>
               </span>
             </NavLink>
           </li>
