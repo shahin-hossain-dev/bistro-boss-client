@@ -1,5 +1,6 @@
 import {
   FaCalendar,
+  FaEnvelope,
   FaHome,
   FaList,
   FaSearch,
@@ -10,6 +11,10 @@ import { MdPostAdd } from "react-icons/md";
 import useCart from "../hooks/useCart";
 const Dashboard = () => {
   const [cart] = useCart();
+
+  //Todo: get Admin value from the database
+  const isAdmin = true;
+
   return (
     <div className="flex min-h-screen">
       {/* dashboard right side bar */}
@@ -51,6 +56,7 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <div className="divider"></div>
+          {/* shared/common nav links */}
           <li>
             <NavLink to={"/"}>
               <span className="flex gap-2 items-center">
@@ -62,6 +68,13 @@ const Dashboard = () => {
             <NavLink to={"/"}>
               <span className="flex gap-2 items-center">
                 <FaSearch /> <span> Menu</span>
+              </span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/"}>
+              <span className="flex gap-2  items-center">
+                <FaEnvelope /> <span> Contact</span>
               </span>
             </NavLink>
           </li>
