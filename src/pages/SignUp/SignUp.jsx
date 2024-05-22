@@ -4,14 +4,16 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SignUp = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     formState: { errors },
     reset,
   } = useForm();
@@ -27,13 +29,23 @@ const SignUp = () => {
         if (result.user) {
           updateUserProfile(name, PhotoURL)
             .then(() => {
-              console.log("user info updated");
-              Swal.fire({
-                title: "User Created Successfully",
-                text: "Welcome to Bistro Boss",
-                icon: "success",
+              // crate user entry in database
+              const userInfo = {
+                name,
+                email,
+              };
+              axiosPublic.post("/users", userInfo).then((res) => {
+                console.log(res.data);
+
+                if (res.data.insertedId) {
+                  Swal.fire({
+                    title: "User Created Successfully",
+                    text: "Welcome to Bistro Boss",
+                    icon: "success",
+                  });
+                  navigate("/");
+                }
               });
-              navigate("/");
             })
             .catch((error) => {
               console.log(error.message);
