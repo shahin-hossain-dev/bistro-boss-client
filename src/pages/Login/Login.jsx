@@ -1,17 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
-import { AuthContext } from "../../providers/AuthProvider";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -51,6 +53,7 @@ const Login = () => {
       setDisabled(true);
     }
   };
+
   return (
     <div>
       <Helmet>
@@ -122,6 +125,7 @@ const Login = () => {
                 </Link>
               </small>
             </p>
+            <SocialLogin />
           </div>
         </div>
       </div>
