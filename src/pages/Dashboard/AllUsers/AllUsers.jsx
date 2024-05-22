@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -15,7 +15,21 @@ const AllUsers = () => {
       return res.data;
     },
   });
-  const handleMakeAdmin = (user) => {};
+  const handleMakeAdmin = (user) => {
+    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          title: "User Make Admin",
+          text: `${name} Increase Your Knowldge `,
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
 
   const handleDeleteItem = (id) => {
     Swal.fire({
@@ -43,6 +57,9 @@ const AllUsers = () => {
     });
   };
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div>
       <div className="flex justify-evenly">
@@ -70,12 +87,18 @@ const AllUsers = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-                    <button
-                      onClick={() => handleMakeAdmin(user)}
-                      className="btn bg-yellow-500 "
-                    >
-                      <FaUsers className="text-white text-xl" />
-                    </button>
+                    {user.role === "admin" ? (
+                      "Admin"
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => handleMakeAdmin(user)}
+                          className="btn bg-yellow-500 "
+                        >
+                          <FaUsers className="text-white text-xl" />
+                        </button>
+                      </>
+                    )}
                   </td>
                   <td>
                     <button
