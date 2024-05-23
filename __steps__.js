@@ -8,5 +8,6 @@
  * 5. check user exist then interst database user
  * 6. hit the post /user api with google login data using public axios form socialLogin component
  * 7. create extra contact route in dashboard for different user role set.
- *
+ * 8. create some admin route, patch user update ot admin role from allUsers page
+ * 9. secure admin role with jwt token
  */
