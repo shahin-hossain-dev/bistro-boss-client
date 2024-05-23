@@ -13,4 +13,5 @@
  * 10. set token client side when user authenticate in website, authprovider থেকে token কে সেট করতে হবে।
  * ১১. ‍ all user component থেকে token কে backend এ পাঠাতে হবে।
  * ১২. backend থেকে token কে ধরতে হবে।
+ * 12. token কে varify করতে হবে। এবং client side এ useAxios Secure এর মধ্যে interceptor, request & response কে setup করতে হবে।
  */

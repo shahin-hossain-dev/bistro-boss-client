@@ -12,12 +12,14 @@ import {
 import { NavLink, Outlet } from "react-router-dom";
 import { MdPostAdd } from "react-icons/md";
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
   const [cart] = useCart();
 
   //Todo: get Admin value from the database
-  const isAdmin = true;
-
+  // const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  console.log(isAdmin);
   return (
     <div className="flex min-h-screen">
       {/* dashboard right side bar */}
