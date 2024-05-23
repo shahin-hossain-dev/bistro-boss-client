@@ -35,7 +35,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={"/dashboard/add-items"}>
+                <NavLink to={"/dashboard/add-item"}>
                   <span className="flex gap-2 items-center">
                     <FaUtensils /> <span>Add Item</span>
                   </span>
