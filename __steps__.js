@@ -9,5 +9,8 @@
  * 6. hit the post /user api with google login data using public axios form socialLogin component
  * 7. create extra contact route in dashboard for different user role set.
  * 8. create some admin route, patch user update ot admin role from allUsers page
- * 9. secure admin role with jwt token
+ * 9. secure admin role with jwt token (setup token) from server side
+ * 10. set token client side when user authenticate in website, authprovider থেকে token কে সেট করতে হবে।
+ * ১১. ‍ all user component থেকে token কে backend এ পাঠাতে হবে।
+ * ১২. backend থেকে token কে ধরতে হবে।
  */
