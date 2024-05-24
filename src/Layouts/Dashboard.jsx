@@ -19,7 +19,7 @@ const Dashboard = () => {
   //Todo: get Admin value from the database
   // const isAdmin = true;
   const [isAdmin] = useAdmin();
-  console.log(isAdmin);
+  // console.log(isAdmin);
   return (
     <div className="flex min-h-screen">
       {/* dashboard right side bar */}
