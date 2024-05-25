@@ -30,7 +30,7 @@ const UpdateItem = () => {
         category: data.category,
         price: parseFloat(data.price),
         recipe: data.recipe,
-        image: res.data.data.display_url,
+        image: res?.data.data.display_url || image,
       };
       const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
       console.log(menuRes.data);
@@ -40,7 +40,7 @@ const UpdateItem = () => {
         Swal.fire({
           icon: "success",
           showConfirmButton: false,
-          title: `${data.name} Recipe Updated Successful`,
+          title: `${data.name} Recipe is Updated Successful`,
           timer: 2000,
         });
       }
