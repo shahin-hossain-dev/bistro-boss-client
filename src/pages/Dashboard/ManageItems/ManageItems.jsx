@@ -1,13 +1,51 @@
-import { FaEdit, FaPen, FaPenAlt, FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useMenu from "../../../hooks/useMenu";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageItems = () => {
-  const [menu] = useMenu();
+  const [menu, refetch, isLoading] = useMenu();
+  const axiosSecure = useAxiosSecure();
 
-  const handleDeleteItems = (id) => {
-    console.log(id);
+  console.log(menu);
+
+  const handleDeleteItems = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/menu/${item._id}`);
+        // console.log(res.data);
+
+        if (res.data.deletedCount > 0) {
+          // refetch update data count
+          refetch();
+          Swal.fire({
+            icon: "success",
+            title: `${item.name} has been deleted`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+
+        // Swal.fire({
+        //   title: "Deleted!",
+        //   text: "Your file has been deleted.",
+        //   icon: "success",
+        // });
+      }
+    });
   };
+
+  if (isLoading) return <span>Loading...</span>;
+
   return (
     <div>
       <SectionTitle heading={"Manage All Items"} subHeading={"Hurry up"} />
@@ -27,7 +65,7 @@ const ManageItems = () => {
             </thead>
             <tbody>
               {/* row 1 */}
-              {menu.map((item, idx) => (
+              {menu?.map((item, idx) => (
                 <tr key={item._id}>
                   <th>{idx + 1}</th>
                   <td>
@@ -51,7 +89,7 @@ const ManageItems = () => {
                   </td>
                   <th>
                     <button
-                      onClick={() => handleDeleteItems(item._id)}
+                      onClick={() => handleDeleteItems(item)}
                       className="btn btn-ghost "
                     >
                       <FaTrashAlt className="text-red-500 text-xl" />
