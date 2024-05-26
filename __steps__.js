@@ -26,7 +26,10 @@
  * 4. crate stripe account
  * 5. get api key form stripe website, api key set in .env
  * 6.create checkoutForm & mount in payment page
- * 7.
+ *
+ * server:
+ * 7. server side setup stripe with post api
+ * 8. send post request from client site checkoutForm
  */
 
 /**
