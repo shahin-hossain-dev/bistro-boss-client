@@ -15,3 +15,16 @@
  * ১২. backend থেকে token কে ধরতে হবে।
  * 12. token কে varify করতে হবে। এবং client side এ useAxios Secure এর মধ্যে interceptor, request & response কে setup করতে হবে।
  */
+
+/**
+ * --------------
+ * MODULE 70
+ * --------------
+ * 1. payment page create in dashboard
+ * 2. set route, link pay button in cart page
+ * 3.
+ * 4.
+ * 5.
+ * 6.
+ * 7.
+ */
