@@ -1,4 +1,8 @@
+import { loadStripe } from "@stripe/stripe-js";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+
+// todo: add publishable key
+const stripePromise = loadStripe("");
 
 const Payment = () => {
   return (
