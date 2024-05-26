@@ -22,9 +22,17 @@
  * --------------
  * 1. payment page create in dashboard
  * 2. set route, link pay button in cart page
- * 3.
- * 4.
- * 5.
- * 6.
+ * 3. setup Stripe on Payment page & form in Checkout form page
+ * 4. crate stripe account
+ * 5. get api key form stripe website, api key set in .env
+ * 6.create checkoutForm & mount in payment page
  * 7.
+ */
+
+/**
+ * STRIPE
+ * 1. install stripe
+ * 2. create card element
+ * 3. create stripe account get publishable key
+ * 4. use publishable key and use stripe to get card info and error
  */
