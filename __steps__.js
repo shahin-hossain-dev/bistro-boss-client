@@ -26,7 +26,8 @@
  * 4. crate stripe account
  * 5. get api key form stripe website, api key set in .env
  * 6.create checkoutForm & mount in payment page
- * 5. confirm payment in checkout page
+ * 5. confirm payment in checkout form
+ * 6. save payment info in the database in checkout form
  *
  *
  *
