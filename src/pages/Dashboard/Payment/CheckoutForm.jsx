@@ -2,14 +2,17 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useCart from "../../../hooks/useCart";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 const CheckoutForm = () => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  const [transactionId, setTransactionId] = useState("");
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const [cart] = useCart();
+  const { user } = useAuth();
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
@@ -19,7 +22,7 @@ const CheckoutForm = () => {
         price: parseInt(totalPrice),
       })
       .then((res) => {
-        console.log(res.data.clientSecret);
+        // console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
   }, [axiosSecure, totalPrice]);
@@ -54,6 +57,29 @@ const CheckoutForm = () => {
       console.log("Payment Method", paymentMethod);
       setError("");
     }
+
+    // confirm payment
+
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            email: user?.email || "anonymous",
+            name: user?.name || "anonymous",
+          },
+        },
+      });
+
+    if (confirmError) {
+      console.log("confirm error", confirmError);
+    } else {
+      console.log("payment intent", paymentIntent);
+      if (paymentIntent.status === "succeeded") {
+        console.log("transaction Id:", paymentIntent.id);
+        setTransactionId(paymentIntent.id);
+      }
+    }
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -81,6 +107,9 @@ const CheckoutForm = () => {
         Pay
       </button>
       <p className="text-red-500">{error}</p>
+      {transactionId && (
+        <p className="text-green-700">Transaction Id: {transactionId}</p>
+      )}
     </form>
   );
 };
