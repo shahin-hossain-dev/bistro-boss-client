@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useCart from "../../../hooks/useCart";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const CheckoutForm = () => {
   const [error, setError] = useState("");
@@ -12,19 +13,21 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   useEffect(() => {
-    axiosSecure
-      .post("/create-payment-intent", {
-        price: parseInt(totalPrice),
-      })
-      .then((res) => {
-        // console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", {
+          price: parseInt(totalPrice),
+        })
+        .then((res) => {
+          // console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
+    }
   }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
@@ -92,6 +95,15 @@ const CheckoutForm = () => {
 
         const res = await axiosSecure.post("/payments", payment);
         console.log("payment saved", res.data);
+        refetch();
+        if (res.data?.paymentResult?.insertedId) {
+          Swal.fire({
+            icon: "success",
+            title: "Thank you for your buy",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       }
     }
   };
