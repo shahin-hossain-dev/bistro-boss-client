@@ -31,7 +31,7 @@ const AdminHome = () => {
       return res.data;
     },
   });
-  console.log(charData);
+  // console.log(charData);
 
   // chart options
   const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
@@ -58,7 +58,7 @@ const AdminHome = () => {
     return { name: data.category, value: data.revenue };
   });
 
-  console.log(pieChartData);
+  // console.log(pieChartData);
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({

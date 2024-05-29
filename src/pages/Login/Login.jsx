@@ -32,7 +32,7 @@ const Login = () => {
     loginUser(email, password)
       .then((result) => {
         const loggedUser = result.user;
-        console.log(loggedUser);
+        // console.log(loggedUser);
         Swal.fire({
           title: "Login Successful",
           text: "You Can Visit Anywhere!",

@@ -20,13 +20,13 @@ const SignUp = () => {
   } = useForm();
   // console.log(errors);
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     const { name, PhotoURL, email, password } = data;
     // console.log(name, email, PhotoURL, password);
 
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         if (result.user) {
           updateUserProfile(name, PhotoURL)
             .then(() => {
@@ -36,7 +36,7 @@ const SignUp = () => {
                 email,
               };
               axiosPublic.post("/users", userInfo).then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
 
                 if (res.data.insertedId) {
                   Swal.fire({

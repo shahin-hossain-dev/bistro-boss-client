@@ -59,7 +59,7 @@ const CheckoutForm = () => {
       console.log("Payment Error", error);
       setError(error.message);
     } else {
-      console.log("Payment Method", paymentMethod);
+      // console.log("Payment Method", paymentMethod);
       setError("");
     }
 
@@ -79,9 +79,9 @@ const CheckoutForm = () => {
     if (confirmError) {
       console.log("confirm error", confirmError);
     } else {
-      console.log("payment intent", paymentIntent);
+      // console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        console.log("transaction Id:", paymentIntent.id);
+        // console.log("transaction Id:", paymentIntent.id);
         setTransactionId(paymentIntent.id);
 
         // now save payment info in the database

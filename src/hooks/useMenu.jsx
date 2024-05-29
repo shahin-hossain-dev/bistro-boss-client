@@ -8,7 +8,7 @@ const useMenu = () => {
   const axiosPublic = useAxiosPublic();
   // const [menu, setMenu] = useState([]);
   // useEffect(() => {
-  //   fetch("http://localhost:5000/menu")
+  //   fetch("https://y-peach-five.vercel.app/menu")
   //     .then((res) => res.json())
   //     .then((data) => setMenu(data));
   // }, []);
