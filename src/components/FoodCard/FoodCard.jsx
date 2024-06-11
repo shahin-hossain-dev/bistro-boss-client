@@ -23,7 +23,7 @@ const FoodCard = ({ item }) => {
         image,
       };
 
-      // axios.post("https://y-peach-five.vercel.app/carts", cartItem).then((res) => {
+      // axios.post("http://localhost:5000/carts", cartItem).then((res) => {
       //   console.log(res.data);
       // });
       axiosSecure.post("/carts", cartItem).then((res) => {

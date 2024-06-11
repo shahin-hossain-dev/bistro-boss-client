@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const commonAxios = axios.create({
-  baseURL: "https://y-peach-five.vercel.app/",
+  baseURL: "http://localhost:5000/",
 });
 
 const useCommonAxios = () => {

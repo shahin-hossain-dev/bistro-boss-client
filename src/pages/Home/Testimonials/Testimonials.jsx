@@ -12,7 +12,7 @@ const Testimonials = () => {
   const [reviews, setReview] = useState([]);
 
   useEffect(() => {
-    fetch("https://y-peach-five.vercel.app/reviews")
+    fetch("http://localhost:5000/reviews")
       .then((res) => res.json())
       .then((data) => setReview(data));
   }, []);
